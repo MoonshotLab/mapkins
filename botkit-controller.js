@@ -3,6 +3,9 @@ const path = require('path');
 const moment = require('moment');
 const axios = require('axios');
 const qs = require('qs');
+const Promise = require('bluebird');
+
+const requestTimeout = 5 * 1000; //ms
 
 const particleUrl = `https://api.particle.io/v1/devices/${process.env
   .PARTICLE_DEVICE_ID}/led`;
@@ -18,40 +21,31 @@ const controller = TwilioSMSBot({
 });
 const bot = controller.spawn({});
 
-function asyncTurnOnLED() {
-  return axios({
-    method: 'POST',
-    url: particleUrl,
-    data: qs.stringify({
-      access_token: process.env.PARTICLE_TOKEN,
-      arg: 'on'
-    }),
-    headers: particleHeaders
-  })
-    .then(res => {
-      console.log(res);
+function asyncTurnOnLED(status = true) {
+  const arg = status === false ? 'off' : 'on';
+
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'POST',
+      url: particleUrl,
+      data: qs.stringify({
+        access_token: process.env.PARTICLE_TOKEN,
+        arg: arg
+      }),
+      timeout: requestTimeout,
+      headers: particleHeaders
     })
-    .catch(err => {
-      console.log(err);
-    });
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
 }
 
 function asyncTurnOffLED() {
-  return axios({
-    method: 'POST',
-    url: particleUrl,
-    data: qs.stringify({
-      access_token: process.env.PARTICLE_TOKEN,
-      arg: 'off'
-    }),
-    headers: particleHeaders
-  })
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  return asyncTurnOnLED(false);
 }
 
 module.exports = function(app) {
@@ -60,31 +54,25 @@ module.exports = function(app) {
     console.log('TwilioSMSBot is online!');
   });
 
-  // controller.hears(['run'], 'message_received', (bot, message) => {
-  //   asyncTurnOnLED
-  //     .then(() => {
-  //       bot.reply(message, 'Turning LED on.');
-  //       return Promise.delay(500);
-  //     })
-  //     .then(() => {
-  //       return asyncTurnOffLED();
-  //     })
-  //     .then(() => {
-  //       bot.reply(message, 'Turning LED off.');
-  //     })
-  //     .catch(err => {
-  //       bot.reply(message, 'Something went wrong!');
-  //     });
-  // });
+  controller.hears(['run'], 'message_received', (bot, message) => {
+    asyncTurnOnLED()
+      .then(() => {
+        bot.reply(message, 'Turned LED on.');
+        return Promise.delay(5 * 1000);
+      })
+      .then(() => {
+        return asyncTurnOffLED();
+      })
+      .then(() => {
+        bot.reply(message, 'Turned LED off.');
+      })
+      .catch(err => {
+        console.log(err);
+        bot.reply(message, 'Something went wrong!');
+      });
+  });
 
-  // controller.hears('.*', 'message_received', (bot, message) => {
-  //   console.log(bot, message);
-  //   bot.reply(message, 'hello');
-  //   // bot.reply(message, `¯\_(ツ)_/¯`);
-  // });
-
-  controller.hears(['.*'], 'message_received', (bot, message) => {
-    console.log('test');
-    bot.reply(message, 'hello');
+  controller.hears('.*', 'message_received', (bot, message) => {
+    bot.reply(message, `¯\\_(ツ)_/¯`);
   });
 };
