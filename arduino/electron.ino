@@ -23,6 +23,8 @@ void setup() {
 }
 
 void loop() {
+  return;
+
   if (millis() - lastSend >= SEND_INTERVAL_MS) {
     if (currentServo > NUM_SERVOS) {
       currentServo = 1;

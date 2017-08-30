@@ -1,14 +1,27 @@
 #include <SoftwareSerial.h>
+#include <Stepper.h>
 
-#define rxPin 10
-#define txPin 11
-SoftwareSerial softSerial(rxPin, txPin);
-
-// shouts to https://github.com/rickkas7/serial_tutorial
+// Run this on a mega.
 
 // Constants
 const size_t READ_BUF_SIZE = 64;
 const size_t NUM_SERVOS = 5;
+const size_t halfSteps = 8;
+const size_t stepsPerRevolution = 256;
+const size_t fullRotationSteps = stepsPerRevolution * halfSteps;
+
+const size_t numSteppers = 5;
+const size_t stepperSpeed = 42;
+
+// shouts to https://github.com/rickkas7/serial_tutorial
+SoftwareSerial softSerial(14, 15);
+
+Stepper stepper1(stepsPerRevolution, 4, 5, 6, 7);
+Stepper stepper2(stepsPerRevolution, 8, 9, 10, 11);
+Stepper stepper3(stepsPerRevolution, 22, 24, 26, 28);
+Stepper stepper4(stepsPerRevolution, 34, 36, 38, 40);
+Stepper stepper5(stepsPerRevolution, 46, 48, 50, 52);
+Stepper steppers[] = {stepper1, stepper2, stepper3, stepper4, stepper5};
 
 // Forward declarations
 void processBuffer();
@@ -20,6 +33,10 @@ size_t readBufOffset = 0;
 void setup() {
   Serial.begin(9600);
   softSerial.begin(9600);
+
+  for (int i = 0; i < numSteppers; i++) {
+    steppers[i].setSpeed(stepperSpeed);
+  }
 }
 
 void loop() {
@@ -37,8 +54,7 @@ void loop() {
         processBuffer();
         readBufOffset = 0;
       }
-    }
-    else {
+    } else {
       readBufOffset = 0;
     }
   }
@@ -56,4 +72,6 @@ void processBuffer() {
 
 void activateServo(int which) {
   Serial.print("Activating servo: "); Serial.println(which);
+  Stepper thisStepper = steppers[which - 1]; // steppers are 0 based
+  thisStepper.step(fullRotationSteps);
 }

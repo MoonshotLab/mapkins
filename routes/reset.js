@@ -7,7 +7,7 @@ const dispense = require('./../lib/dispense');
 
 router.use('/', (req, res) => {
   dispense
-    .asyncResetDb()
+    .asyncResetMapkinsCount()
     .then(() => {
       res.sendStatus(200);
     })

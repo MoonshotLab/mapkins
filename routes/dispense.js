@@ -18,6 +18,7 @@ router.post('/', (req, res) => {
         res.sendStatus(200);
       })
       .catch(err => {
+        console.log(err);
         res.status(500).send({
           message: err.message,
           foo: 'bar'
