@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const low = require('lowdb');
-const dbFile = 'db.json';
 
-const dispense = require('./../lib/dispense');
+const db = require('./../lib/db');
 
 router.use('/', (req, res) => {
-  dispense
+  db
     .asyncResetMapkinsCount()
     .then(() => {
       res.sendStatus(200);

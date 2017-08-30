@@ -6,7 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 
-const dispense = require('./lib/dispense').init();
+require('./lib/db').initIfNecessary();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -23,7 +23,7 @@ app.use('/status', require('./routes/status'));
 app.use('/dispense', require('./routes/dispense'));
 app.use('/reset', require('./routes/reset'));
 
-require('./lib/botkit-controller')(app);
+require('./lib/botkit').init(app);
 
 const port = process.env.PORT || 3000;
 http.listen(port, () => {
