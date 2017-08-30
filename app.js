@@ -6,7 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 
-const status = require('./routes/status');
+const dispense = require('./lib/dispense').init();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -19,9 +19,11 @@ app.get('/', (req, res) => {
   res.redirect('https://www.barkleyus.com/');
 });
 
-app.use('/status', status);
+app.use('/status', require('./routes/status'));
+app.use('/dispense', require('./routes/dispense'));
+app.use('/reset', require('./routes/reset'));
 
-require('./botkit-controller')(app);
+require('./lib/botkit-controller')(app);
 
 const port = process.env.PORT || 3000;
 http.listen(port, () => {
