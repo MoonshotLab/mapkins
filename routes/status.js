@@ -3,11 +3,12 @@ const router = express.Router();
 // const low = require('lowdb');
 const Promise = require('bluebird');
 
-const status = require('./../lib/status');
-const botkit = require('./../lib/botkit');
-const controller = botkit.controller;
+// const status = require('./../lib/status');
+// const botkit = require('./../lib/botkit');
+// const controller = botkit.controller;
 
 router.get('/', (req, res) => {
+  res.sendStatus(200);
   // Promise.all(
   //   status.asyncGetMapkinsLeft(),
   //   status.asyncGetTotalMapkinsDispensed(),

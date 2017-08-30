@@ -19,11 +19,11 @@ app.get('/', (req, res) => {
   res.redirect('https://www.barkleyus.com/');
 });
 
+require('./lib/botkit').init(app);
+
 app.use('/status', require('./routes/status'));
 app.use('/dispense', require('./routes/dispense'));
 app.use('/reset', require('./routes/reset'));
-
-require('./lib/botkit').init(app);
 
 const port = process.env.PORT || 3000;
 http.listen(port, () => {
