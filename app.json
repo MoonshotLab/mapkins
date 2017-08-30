@@ -1,8 +1,8 @@
 {
   "scripts": {
     "dokku": {
-      "predeploy": "touch /tmp/db.json; ls -la /tmp",
-      "postdeploy": "echo 'hi'"
+      "predeploy": "touch /tmp/data/db.json",
+      "postdeploy": "echo 'donezo'"
     }
   }
 }
