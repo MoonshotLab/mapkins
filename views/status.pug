@@ -1,5 +1,8 @@
 extends layout.pug
 
 block content
-  h1 Mapkins Status
-  h3= `Remaining: ${mapkinsLeft}`
+  h1= `Machine Connected: ${electronIsConnected}`
+  h1= `Mapkins Remaining: ${mapkinsLeft}`
+  h1= `Total Mapkins Dispensed: ${totalMapkinsDispensed}`
+  h1= `Total Users: ${numUsers}`
+  h1= `Users on Waitlist: ${waitlist.length}`

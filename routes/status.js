@@ -3,32 +3,46 @@ const router = express.Router();
 // const low = require('lowdb');
 const Promise = require('bluebird');
 
-// const status = require('./../lib/status');
-// const botkit = require('./../lib/botkit');
-// const controller = botkit.controller;
+const status = require('./../lib/status');
+const user = require('./../lib/user');
+
+function asyncReject() {
+  return new Promise((resolve, reject) => {
+    reject(new Error('test'));
+  });
+}
 
 router.get('/', (req, res) => {
-  res.sendStatus(200);
-  // Promise.all(
-  //   status.asyncGetMapkinsLeft(),
-  //   status.asyncGetTotalMapkinsDispensed(),
-  //   user.asyncGetNumUsers()
-  // ).then(promiseResultsArray => {
-  //   console.log(promiseResultsArray);
-  //   res.sendStatus(200);
-  // });
-  // dispense
-  //   .asyncGetMapkinsLeft()
-  //   .then(mapkinsLeft => {
-  //     res.render('status', {
-  //       mapkinsLeft: mapkinsLeft
-  //     });
-  //   })
-  //   .catch(err => {
-  //     res.status(500).send({
-  //       message: err.message
-  //     });
-  //   });
+  const promises = [
+    status.asyncCheckIfElectronIsConnected(),
+    status.asyncGetMapkinsLeft(),
+    status.asyncGetTotalMapkinsDispensed(),
+    user.asyncGetNumUsers(),
+    user.asyncGetWaitlist()
+  ];
+
+  Promise.all(promises)
+    .then(promiseResultsArray => {
+      const [
+        electronIsConnected,
+        mapkinsLeft,
+        totalMapkinsDispensed,
+        numUsers,
+        waitlist
+      ] = promiseResultsArray;
+
+      res.render('status', {
+        electronIsConnected: electronIsConnected,
+        mapkinsLeft: mapkinsLeft,
+        totalMapkinsDispensed: totalMapkinsDispensed,
+        numUsers: numUsers,
+        waitlist: waitlist
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;
