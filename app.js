@@ -25,6 +25,7 @@ require('./lib/botkit').init(app);
 app.use('/status', require('./routes/status'));
 app.use('/dispense', require('./routes/dispense'));
 app.use('/reset', require('./routes/reset'));
+app.use('/info', require('./routes/info'));
 
 const port = process.env.PORT || 3000;
 http.listen(port, () => {

@@ -1,0 +1,33 @@
+extends layout.pug
+
+block content
+  div.row
+    h2 Mapkins Info
+    h4
+      a(href="/status") Status Page
+    h4
+      a(href="/reset") Reset Mapkin Count
+  div.row
+    h4 General info
+    ul
+      li The mapkin number is (816)-527-8439.
+      li Test dispensing by going to #[a(href="/dispense") /dispense] or specify the specific stepper by going to /dispense/stepperNum
+      li Steppers are numbered 1 - 5. Triggering steppers outside this range won't work.
+  div.row
+    h4 Particle Electron
+    ul
+      li Electron events are logged #[a(href="https://console.particle.io/devices/2b0033001951353338363036") here]. (innovate@barkleyus.com / M00nsh0t!)
+      li A dispense event should be triggered each time a mapkin is dispensed.
+      li Electron should be 'breathing' (not solid, not fast flashing) white.
+      li Ground, 3v3, TX and RX all connect to the corresponding pins on the LLC (logic level converter) on the LV (low voltage) side.
+  div.row
+    h4 Arduino Mega
+    ul
+      li Ground, 5V, and pins 51 and 53 should be connected to the LLC. Pin 51 goes to the TX pin on the LLC and pin 53 goes to RX.
+      li All steppers should be connected to the Mega via pins IN1-4 in the order listed below.
+      li Stepper 1 should be connected to pins 4, 5, 6, 7.
+      li Stepper 2 should be connected to pins 8, 9, 10, 11.
+      li Stepper 3 should be connected to pins 22, 24, 26, 28.
+      li Stepper 4 should be connected to pins 34, 36, 38, 40.
+      li Stepper 5 should be connected to pins 46, 48, 50, 52.
+  
