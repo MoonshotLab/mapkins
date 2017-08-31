@@ -19,6 +19,7 @@
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "lowdb": "^0.16.2",
+    "mailgun-js": "^0.13.1",
     "moment": "^2.18.1",
     "node-uuid": "^1.4.8",
     "particle-api-js": "^6.5.0",
