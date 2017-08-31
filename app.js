@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 
 require('./lib/db').initIfNecessary();
+require('./lib/notify').contactAdminsIfElectronIsOffline();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
