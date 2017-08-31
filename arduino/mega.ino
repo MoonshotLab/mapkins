@@ -14,7 +14,7 @@ const size_t numSteppers = 5;
 const size_t stepperSpeed = 42;
 
 // shouts to https://github.com/rickkas7/serial_tutorial
-SoftwareSerial softSerial(14, 15);
+SoftwareSerial softSerial(51, 53);
 
 Stepper stepper1(stepsPerRevolution, 4, 5, 6, 7);
 Stepper stepper2(stepsPerRevolution, 8, 9, 10, 11);
@@ -32,6 +32,7 @@ size_t readBufOffset = 0;
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("Begin");
   softSerial.begin(9600);
 
   for (int i = 0; i < numSteppers; i++) {

@@ -37,5 +37,6 @@ void loop() {
 
 int dispense(String servoNum) {
   Serial1.println(servoNum);
+  Particle.publish("dispense", servoNum);
   return 1;
 }
