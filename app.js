@@ -6,9 +6,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 
-require('./lib/db').initIfNecessary();
-require('./lib/notify').contactAdminsIfElectronIsOffline();
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -21,7 +18,9 @@ app.get('/', (req, res) => {
   res.redirect('/info');
 });
 
+require('./lib/db').initIfNecessary();
 require('./lib/botkit').init(app);
+require('./lib/notify').contactAdminsIfElectronIsOffline();
 
 app.use('/status', require('./routes/status'));
 app.use('/dispense', require('./routes/dispense'));
