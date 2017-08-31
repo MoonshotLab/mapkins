@@ -17,7 +17,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.redirect('https://www.barkleyus.com/');
+  // res.redirect('https://www.barkleyus.com/');
+  res.redirect('/info');
 });
 
 require('./lib/botkit').init(app);
