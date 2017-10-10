@@ -80,12 +80,12 @@ void setupPins() {
     pinMode(directionPin, OUTPUT); // direction
   }
 
-   // enable
   pinMode(enablePin, OUTPUT);
-  digitalWrite(enablePin, LOW);
 }
 
 void turnStepper(int stepperNum, bool clockwise) {
+  digitalWrite(enablePin, LOW); // enable
+
   if (serialPrint) {
     Serial.print("Turning stepper "); Serial.print(stepperNum);
     if (clockwise == true) {
@@ -112,6 +112,9 @@ void turnStepper(int stepperNum, bool clockwise) {
 
     delay(millisbetweenSteps);
   }
+
+  delay(100); // wait so we don't cut off turning
+  digitalWrite(enablePin, HIGH); // disable
 }
 
 void testAllSteppers() {
