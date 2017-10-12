@@ -81,6 +81,7 @@ void setupPins() {
   }
 
   pinMode(enablePin, OUTPUT);
+  digitalWrite(enablePin, HIGH); // disable
 }
 
 void turnStepper(int stepperNum, bool clockwise) {
