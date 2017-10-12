@@ -33,7 +33,7 @@ void setup() {
   }
 
   setupPins();
-  testAllSteppers();
+  // testAllSteppers();
 }
 
 void loop() {
@@ -125,4 +125,3 @@ void testAllSteppers() {
     delay(2000);
   }
 }
-
