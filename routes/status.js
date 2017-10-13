@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
     status.asyncCheckIfElectronIsConnected(),
     status.asyncGetMapkinsLeft(),
     status.asyncGetTotalMapkinsDispensed(),
+    status.asyncGetCurrentStepper(),
     user.asyncGetNumUsers(),
     user.asyncGetWaitlist()
   ];
@@ -27,6 +28,7 @@ router.get('/', (req, res) => {
         electronIsConnected,
         mapkinsLeft,
         totalMapkinsDispensed,
+        currentStepper,
         numUsers,
         waitlist
       ] = promiseResultsArray;
@@ -35,6 +37,7 @@ router.get('/', (req, res) => {
         electronIsConnected: electronIsConnected,
         mapkinsLeft: mapkinsLeft,
         totalMapkinsDispensed: totalMapkinsDispensed,
+        currentStepper: currentStepper,
         numUsers: numUsers,
         waitlist: waitlist
       });
