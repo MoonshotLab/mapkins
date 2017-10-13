@@ -9,5 +9,12 @@ I should make a fritzing diagram for this, but basically it works like this:
 * The Electron sends that string via serial to an Arduino Uno with a [CNC Shield](https://www.amazon.com/Witbot-Expansion-Stepper-Arduino-Engraver/dp/B01M9EAYFT) hooked up to 4 [A4988 Stepper Motor Drivers](https://www.pololu.com/product/1182) each connected to a [stepper](https://www.amazon.com/Quimat-Stepper-Connector-Mounting-Brackets/dp/B06XR8Q5Y2).
 * The stepper turns a helix which dispenses a Mapkin.
 
+#### Endpoints
+* `/` -> `/info` gives basic info about installation.
+* `/status` gives the status (number Mapkins left, Electron connected, etc.)
+* `/dispense` dispenses to the current stepper
+* `/dispense/num` dispenses to a specified stepper
+* `/reset` resets the mapkin count to full
+
 #### Setup
 `mv dotenv .env` and fill in yr info. Deploy via Dokku. Hope and pray.
