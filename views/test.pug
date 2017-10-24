@@ -26,6 +26,8 @@ block header_scripts
       margin: 2.5rem;
       padding: 2.5rem; 
       border: 3px solid #000;
+      cursor: pointer;
+      transition: background-color 500ms;
     }
 
 block footer_scripts
@@ -35,9 +37,10 @@ block footer_scripts
 block content
   if electronIsConnected
     ul#dispensers
-      li(class="dispenser")= `Dispense`
       each dispenser, i in config.mapkinsCapacity
         - var oneIndexedIndex = i + 1;
         li(data-dispenser=oneIndexedIndex class="dispenser")= `Stepper ${oneIndexedIndex}`
+      li(class="dispenser")= `Dispense`
+      li(class="reset")= `Reset`
   else
     h1 Electron is not connected

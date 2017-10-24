@@ -1,3 +1,23 @@
+function makeAjaxCallAndAddButtonClasses($this, url, timeout = 3000) {
+  $this.addClass('clicked');
+  $.ajax(url)
+    .done(() => {
+      $this.removeClass('clicked');
+      addTemporaryClass($this, 'success', timeout);
+    })
+    .fail(() => {
+      $this.removeClass('clicked');
+      addTemporaryClass($this, 'failure', timeout);
+    });
+}
+
+function hookUpResetClick() {
+  $('#dispensers .reset').on('click tap touch', function(e) {
+    const $this = $(this);
+    makeAjaxCallAndAddButtonClasses($(this), '/reset');
+  });
+}
+
 function addTemporaryClass($this, className, timeout) {
   $this.addClass(className);
   setTimeout(() => {
@@ -6,7 +26,7 @@ function addTemporaryClass($this, className, timeout) {
 }
 
 function hookUpDispensersClick() {
-  $('#dispensers li').on('click tap touch', function(e) {
+  $('#dispensers .dispenser').on('click tap touch', function(e) {
     const $this = $(this);
 
     let url = '/dispense';
@@ -15,21 +35,13 @@ function hookUpDispensersClick() {
       url += `/${dispenserNum}`;
     }
 
-    $this.addClass('clicked');
-    $.ajax(url)
-      .done(() => {
-        $this.removeClass('clicked');
-        addTemporaryClass($this, 'success', 5000);
-      })
-      .fail(() => {
-        $this.removeClass('clicked');
-        addTemporaryClass($this, 'failure', 5000);
-      });
+    makeAjaxCallAndAddButtonClasses($this, url);
   });
 }
 
 function run() {
   hookUpDispensersClick();
+  hookUpResetClick();
 }
 
 $(window).on('load', () => {
