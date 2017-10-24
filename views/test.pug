@@ -33,8 +33,11 @@ block footer_scripts
   script(src='dispenseButtons.js')
 
 block content
-  ul#dispensers
-    li(class="dispenser")= `Dispense`
-    each dispenser, i in config.mapkinsCapacity
-      - var oneIndexedIndex = i + 1;
-      li(data-dispenser=oneIndexedIndex class="dispenser")= `Stepper ${oneIndexedIndex}`
+  if electronIsConnected
+    ul#dispensers
+      li(class="dispenser")= `Dispense`
+      each dispenser, i in config.mapkinsCapacity
+        - var oneIndexedIndex = i + 1;
+        li(data-dispenser=oneIndexedIndex class="dispenser")= `Stepper ${oneIndexedIndex}`
+  else
+    h1 Electron is not connected
