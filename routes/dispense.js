@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
 const qs = require('qs');
 const Promise = require('bluebird');
 
@@ -10,11 +9,15 @@ router.get('/', (req, res) => {
   dispense
     .asyncDispenseMapkin()
     .then(stepper => {
-      res.send(`<h1>SUCCESSFULLY DISPENSED TO STEPPER ${stepper}</h1>`);
+      res
+        .status(200)
+        .send(`<h1>SUCCESSFULLY DISPENSED TO STEPPER ${stepper}</h1>`);
     })
     .catch(err => {
       console.log('Error getting /dispense', err);
-      res.send(`<h1>ERROR</h1><pre style='font-size: 24px;'>${err}</pre>`);
+      res
+        .status(500)
+        .send(`<h1>ERROR</h1><pre style='font-size: 24px;'>${err}</pre>`);
     });
 });
 
@@ -23,11 +26,15 @@ router.get('/:stepper', (req, res) => {
     dispense
       .asyncDispenseMapkinToStepper(req.params.stepper)
       .then(stepper => {
-        res.send(`<h1>SUCCESSFULLY DISPENSED TO STEPPER ${stepper}</h1>`);
+        res
+          .status(200)
+          .send(`<h1>SUCCESSFULLY DISPENSED TO STEPPER ${stepper}</h1>`);
       })
       .catch(err => {
         console.log('Error getting /dispense', err);
-        res.send(`<h1>ERROR</h1><pre style='font-size: 24px;'>${err}</pre>`);
+        res
+          .status(500)
+          .send(`<h1>ERROR</h1><pre style='font-size: 24px;'>${err}</pre>`);
       });
   } else {
     res.redirect('/dispense');

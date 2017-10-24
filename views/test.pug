@@ -1,0 +1,40 @@
+extends layout.pug
+
+block header_scripts
+  style.
+    .clicked {
+      background-color: yellow;
+    }
+    
+    .success {
+      background-color: green;
+    }
+    
+    .failure {
+      background-color: red;
+    }
+    
+    #dispensers {
+      list-style: none; 
+      margin: 0; 
+      display: flex; 
+      flex-wrap: wrap; 
+      justify-content: space-between;
+    }
+    
+    #dispensers li {
+      margin: 2.5rem;
+      padding: 2.5rem; 
+      border: 3px solid #000;
+    }
+
+block footer_scripts
+  script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+  script(src='dispenseButtons.js')
+
+block content
+  ul#dispensers
+    li(class="dispenser")= `Dispense`
+    each dispenser, i in config.mapkinsCapacity
+      - var oneIndexedIndex = i + 1;
+      li(data-dispenser=oneIndexedIndex class="dispenser")= `Stepper ${oneIndexedIndex}`

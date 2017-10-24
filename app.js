@@ -26,6 +26,7 @@ app.use('/status', require('./routes/status'));
 app.use('/dispense', require('./routes/dispense'));
 app.use('/reset', require('./routes/reset'));
 app.use('/info', require('./routes/info'));
+app.use('/test', require('./routes/test'));
 
 const port = process.env.PORT || 3000;
 http.listen(port, () => {
