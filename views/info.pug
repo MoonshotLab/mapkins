@@ -1,31 +1,34 @@
 extends layout.pug
 
 block content
-  div.row
-    h2 Mapkins Info
-    h4
-      a(href="/status") Status Page
-    h4
-      a(href="/reset") Reset Mapkin Count
-    h4
-      a(href="/test") Test Dispensers
-  div.row
-    h4 General info
-    ul
-      li The mapkin number is (816)-527-8439.
-      li Test dispensing by going to #[a(href="/dispense") /dispense] or specify the specific stepper by going to /dispense/stepperNum
-      li Steppers are numbered 1 - 4 top to bottom. Triggering steppers outside this range won't work.
-  div.row
-    h4 Particle Electron
-    ul
-      li Electron events are logged #[a(href="https://console.particle.io/devices/2b0033001951353338363036") here]. (innovate@barkleyus.com / M00nsh0t!)
-      li A dispense event should be triggered each time a mapkin is dispensed.
-      li Electron should be 'breathing' (not solid, not fast flashing) white.
-      li TX connects to Uno RX (on the CNC shield), RX connects to Uno TX (on the CNC shield), ground connected.
-  div.row
-    h4 Arduino Uno
-    ul
-      li CNC shield be installed and power and ground connected to separate power supply.
-      li Steppers should be connected to shield (1 to X, 2 to Y, 3 to Z, 4 to A)
-      li The A axis should be enabled with jumpers on the shield
-      li TX connects to Electron RX, RX connects to Electron TX, ground connected.
+  div.container
+    div.row
+      h2 Mapkins Info
+      h4
+        a(href="/status") Status Page
+      h4
+        a(href="/reset") Reset Mapkin Count
+      h4
+        a(href="/test") Test Dispensers
+      h4
+        a(href="/reset-number") Reset Number
+    div.row
+      h4 General info
+      ul
+        li The mapkin number is (816)-527-8439.
+        li Test dispensing by going to #[a(href="/dispense") /dispense] or specify the specific stepper by going to /dispense/stepperNum
+        li Steppers are numbered 1 - 4 top to bottom. Triggering steppers outside this range won't work.
+    div.row
+      h4 Particle Electron
+      ul
+        li Electron events are logged #[a(href="https://console.particle.io/devices/2b0033001951353338363036") here]. (innovate@barkleyus.com / M00nsh0t!)
+        li A dispense event should be triggered each time a mapkin is dispensed.
+        li Electron should be 'breathing' (not solid, not fast flashing) white.
+        li TX connects to Uno RX (on the CNC shield), RX connects to Uno TX (on the CNC shield), ground connected.
+    div.row
+      h4 Arduino Uno
+      ul
+        li CNC shield be installed and power and ground connected to separate power supply.
+        li Steppers should be connected to shield (1 to X, 2 to Y, 3 to Z, 4 to A)
+        li The A axis should be enabled with jumpers on the shield
+        li TX connects to Electron RX, RX connects to Electron TX, ground connected.

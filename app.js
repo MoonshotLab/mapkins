@@ -28,6 +28,7 @@ app.use('/reset', require('./routes/reset'));
 app.use('/reset-number', require('./routes/resetNumber'));
 app.use('/info', require('./routes/info'));
 app.use('/test', require('./routes/test'));
+app.use('/success', require('./routes/success'));
 
 const port = process.env.PORT || 3000;
 http.listen(port, () => {

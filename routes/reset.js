@@ -11,7 +11,7 @@ router.use('/', (req, res) => {
       return notify.asyncNotifyEveryoneOnWaitlistOfRefill();
     })
     .then(() => {
-      res.redirect('/status');
+      res.redirect('/success');
     })
     .catch(err => {
       console.log(err);
