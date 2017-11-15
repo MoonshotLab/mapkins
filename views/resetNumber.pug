@@ -1,0 +1,39 @@
+extends layout.pug
+
+block content
+  style.
+    input {
+      width: 100%;
+      display: block;
+      padding: 20px !important;
+      font-size: 20px;
+    }
+    
+    #clear-button {
+      float: right;
+    }
+    
+    #status-message {
+      display: none;
+    }
+    
+    .error {
+      color: red;
+    }
+    
+    .success {
+      color: green;
+    }
+  
+
+  div.container
+    h1 Reset Number
+    form#reset-form
+      input#reset-number(type='tel')
+      button#reset-button Submit
+      button#clear-button Clear
+    h3#status-message
+
+block footer_scripts
+  script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+  script(src='resetNumber.js')

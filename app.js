@@ -25,6 +25,7 @@ require('./lib/notify').contactAdminsIfElectronIsOffline();
 app.use('/status', require('./routes/status'));
 app.use('/dispense', require('./routes/dispense'));
 app.use('/reset', require('./routes/reset'));
+app.use('/reset-number', require('./routes/resetNumber'));
 app.use('/info', require('./routes/info'));
 app.use('/test', require('./routes/test'));
 
