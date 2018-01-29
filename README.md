@@ -1,4 +1,6 @@
-### Mapkins Machine
+## Mapkins Machine
+
+For a more detailed writeup, see [here](https://prestonrichey.com/projects/professional/mapkins-machine/).
 
 Text a phone number and get a napkin. Yay!
 
